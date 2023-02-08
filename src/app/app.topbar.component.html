@@ -14,7 +14,7 @@
     </a>
 
     <div class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active':appMain.topMenuActive}">
-         <!-- <a href="#" class="p-link layout-topbar-button">
+         <a href="#" class="p-link layout-topbar-button">
             <i class="pi pi-calendar"></i>
             <span>Calendar</span>
         </a>
@@ -25,41 +25,6 @@
         <a href="#" class="p-link layout-topbar-button">
             <i class="pi pi-user"></i>
             <span>Profile</span>
-        </a> -->
-        <table>
-            <tr>
-                <td>  
-                              <!-- <p-badge value="TEST" size="large" severity="info"></p-badge> -->
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-
-                <td>            <p-badge  value="{{user.fonction}}" size="large" severity="info"></p-badge>
-                                                                    <!-- user.dg_fonction.libelle -->
-
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>                       <p-badge  value="{{user?.nom}} {{ user?.prenom}}" size="large" severity="info"></p-badge>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>            <button (click)="deconnexion() " pButton type="button" label="Deconnexion" class="p-button-danger"></button>
-                </td>
-            </tr> 
-        </table>
-
+        </a>
     </div>
 </div>
