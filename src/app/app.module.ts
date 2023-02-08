@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -141,6 +141,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import { StatutComponent } from './components/statut/statut.component';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { initializeKeycloak } from './components/keycloak/app.init';
 
 
 @NgModule({
@@ -233,6 +235,7 @@ import { StatutComponent } from './components/statut/statut.component';
         AppCodeModule,
         StyleClassModule,
         ProgressSpinnerModule,
+        KeycloakAngularModule
     ],
     declarations: [
         AppComponent,
@@ -280,7 +283,14 @@ import { StatutComponent } from './components/statut/statut.component';
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MenuService, ConfigService
+        PhotoService, ProductService, MenuService, ConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeKeycloak,
+            multi: true,
+            deps: [KeycloakService],
+        },
+        DatePipe
     ],
     bootstrap: [AppComponent]
 })

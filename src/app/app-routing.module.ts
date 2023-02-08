@@ -27,14 +27,15 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
+import { AuthGuard } from './components/keycloak/auth.guard';
 // @ts-ignore
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
-                path: '', component: AppMainComponent,
+                path: '', component: AppMainComponent,canActivate:[AuthGuard],
                 children: [
-                    {path: '', component: DashboardComponent},
+                    {path: '', component: DashboardComponent,canActivate:[AuthGuard]},
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelComponent},
