@@ -20,7 +20,7 @@ export class AppTopBarComponent {
             this.keycloak.loadUserProfile().then( res => {
                 console.log(res);
                 this.user = res;
-                this.getUserByUsername(res.username);
+                this.getUserByUsername(res.username );
             })
         }
 
