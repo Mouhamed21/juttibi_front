@@ -29,6 +29,10 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import { AuthGuard } from './components/keycloak/auth.guard';
 import {UsersComponent} from "./components/users/users.component";
+import {FonctionComponent} from "./components/fonction/fonction.component";
+import {CategorieMarchandComponent} from "./components/categorie-marchand/categorie-marchand.component";
+import {FrequencePaiement} from "./modele/FrequencePaiement";
+import {FrequencePaiementComponent} from "./components/frequence-paiement/frequence-paiement.component";
 // @ts-ignore
 @NgModule({
     imports: [
@@ -38,11 +42,9 @@ import {UsersComponent} from "./components/users/users.component";
                 children: [
                     {path: '', component: DashboardComponent,canActivate:[AuthGuard]},
                     {path: 'juttibi/user', component: UsersComponent},
-
-
-
-
-
+                    {path: 'juttibi/fonction', component: FonctionComponent},
+                    {path: 'juttibi/categorieMarchand', component: CategorieMarchandComponent},
+                    {path: 'juttibi/frequencePaiement', component: FrequencePaiementComponent},
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelComponent},

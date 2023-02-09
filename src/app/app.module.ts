@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -141,6 +141,9 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import { StatutComponent } from './components/statut/statut.component';
+import { FonctionComponent } from './components/fonction/fonction.component';
+import { CategorieMarchandComponent } from './components/categorie-marchand/categorie-marchand.component';
+import { FrequencePaiementComponent } from './components/frequence-paiement/frequence-paiement.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './components/keycloak/app.init';
 import { UsersComponent } from './components/users/users.component';
@@ -279,6 +282,10 @@ import { UsersComponent } from './components/users/users.component';
         ErrorComponent,
         NotfoundComponent,
         AccessComponent,
+        StatutComponent,
+        FonctionComponent,
+        CategorieMarchandComponent,
+        FrequencePaiementComponent,
         StatutComponent,
         UsersComponent
     ],

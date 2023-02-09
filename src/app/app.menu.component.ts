@@ -44,6 +44,9 @@ export class AppMenuComponent implements OnInit {
             ,{
                 label: 'UI Components',
                 items: [
+                    {label: 'Fonction', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/fonction']},
+                    {label: 'Categorie Marchand', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/categorieMarchand']},
+                    {label: 'Frequence Paiement', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/frequencePaiement']},
                     {label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout']},
                     {label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input']},
                     {label: 'Float Label', icon: 'pi pi-fw pi-bookmark', routerLink: ['/uikit/floatlabel']},
