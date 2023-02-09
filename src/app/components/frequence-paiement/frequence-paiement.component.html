@@ -1,0 +1,145 @@
+<p-toast></p-toast>
+
+<div class="card" *ngIf="frequencePaiements">
+    <h5>Gestion des Frequence de Paiement</h5>
+
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nouvelle" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <!--            <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" ></button>-->
+        </ng-template>
+    </p-toolbar>
+
+    <div *ngIf="loading==true">
+        <h5 class="spinner">Veuillez Passienter...</h5>
+        <p-progressSpinner class="spinner"></p-progressSpinner>
+    </div>
+    <p-table *ngIf="frequencePaiements.length==0">
+        <ng-template pTemplate="header">
+
+            <p class="vides">La liste des Frequences de Paiements est vide</p>
+
+
+        </ng-template>
+
+    </p-table>
+    <!--    <p-progressSpinner *ngIf="loading==true" class="spinner"></p-progressSpinner>-->
+
+    <p-table  #dt [value]="frequencePaiements" *ngIf="frequencePaiements.length!=0 && loading==false" [paginator]="true" [rows]="10"  [globalFilterFields]="['libelle']" responsiveLayout="scroll"
+              [rowHover]="true" dataKey="id"
+              [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                <h5 class="m-0">Liste des Frequences de Paiements</h5>
+                <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Recherche..." />
+                        </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+
+                <th pSortableColumn="libelle">Libelle <p-sortIcon field="libelle"></p-sortIcon></th>
+                <th pSortableColumn="chiffre">Nombre de fois <p-sortIcon field="chiffre"></p-sortIcon></th>
+
+                <th>Actions</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-frequencePaiement>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="frequencePaiement"></p-tableCheckbox>
+                </td>
+                <td>{{frequencePaiement.libelle}}</td>
+                <td>{{frequencePaiement.chiffre}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editFrequencePaiement(frequencePaiement)" pTooltip="Modifier une Frequence de Paiements" ></button>
+                    <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" (click)="deleteClasse(classe)" pTooltip="Supprimer une classe" ></button>
+                     <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary"  (click)="getOneClasse(classe)" pTooltip="Détails" ></button>-->
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-table>
+
+</div>
+
+<p-dialog [(visible)]="frequencePaiementDialog" [style]="{width: 'auto'}" header="Ajout d'une Frequence de Paiements" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field p-col">
+            <label for="libelle">Libelle</label>
+            <div class="espace1">
+
+            </div>
+
+            <input type="text" pInputText id="libelle"  [(ngModel)]="frequencePaiement.libelle" required autofocus />
+            <small class="p-error" *ngIf="submitted && !frequencePaiement.libelle">Libelle est obligatoire.</small>
+        </div> <br> <br>
+        <div class="field col-12 md:col-3">
+            <label for="chiffre">Nombre de fois</label>
+            <div class="espace1">
+
+            </div>
+            <p-inputNumber id="chiffre" [showButtons]="true"  buttonLayout="vertical" [(ngModel)]="frequencePaiement.chiffre"  [min]="1" [max]="12"></p-inputNumber>
+
+            <!--            <p-inputNumber id="chiffre"  [(ngModel)]="frequencePaiement.chiffre" required autofocus></p-inputNumber>-->
+            <small class="p-error" *ngIf="submitted && !frequencePaiement.chiffre">Chiffre est obligatoire.</small>
+        </div>
+
+    </ng-template>
+    <div class="espace">
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postFrequencePaiement()" ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="frequencePaiementEditDialog" [style]="{width: 'auto'}" header="Modification d'une Frequence de Paiement" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field p-col">
+            <label for="libelle">Libelle</label>
+            <div class="espace1">
+
+            </div>
+            <input type="text" pInputText id="libelle"  [(ngModel)]="frequencePaiement.libelle" required autofocus />
+            <small class="p-error" *ngIf="submitted && !frequencePaiement.libelle">Libelle est obligatoire.</small>
+        </div> <br> <br>
+<!--        <div class="p-field p-col">-->
+        <div class="field col-12 md:col-3">
+            <label for="chiffre">Nombre de fois</label>
+            <div class="espace1">
+
+            </div>
+            <p-inputNumber id="chiffre" [showButtons]="true"  buttonLayout="vertical" [(ngModel)]="frequencePaiement.chiffre"  [min]="1" [max]="12"></p-inputNumber>
+
+<!--            <p-inputNumber id="montant"  [(ngModel)]="frequencePaiement.chiffre" required autofocus></p-inputNumber>-->
+
+            <!--            <input type="text" pInputText id="montant"  [(ngModel)]="frequencePaiement.montant" required autofocus />-->
+            <small class="p-error" *ngIf="submitted && !frequencePaiement.chiffre">Chiffre est obligatoire.</small>
+        </div>
+
+    </ng-template>
+    <div class="espace">
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger"  (click)="hideDialog()"></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postFrequencePaiement()" ></button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+
