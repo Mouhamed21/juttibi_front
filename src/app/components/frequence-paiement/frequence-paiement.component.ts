@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ConfirmationService, MessageService} from "primeng/api";
 import {FrequencePaiement} from "../../modele/FrequencePaiement";
 import {FrequencePaiementService} from "../../service/FrequencePaiement/frequence-paiement.service";
-import {CategorieMarchandService} from "../../service/CategorieMarchand/categorie-marchand.service";
-
 @Component({
   selector: 'app-frequence-paiement',
   templateUrl: './frequence-paiement.component.html',

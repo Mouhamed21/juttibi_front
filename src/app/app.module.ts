@@ -147,6 +147,7 @@ import { FrequencePaiementComponent } from './components/frequence-paiement/freq
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './components/keycloak/app.init';
 import { UsersComponent } from './components/users/users.component';
+import { ModepaiementComponent } from './components/modepaiement/modepaiement.component';
 
 
 @NgModule({
@@ -287,7 +288,8 @@ import { UsersComponent } from './components/users/users.component';
         CategorieMarchandComponent,
         FrequencePaiementComponent,
         StatutComponent,
-        UsersComponent
+        UsersComponent,
+        ModepaiementComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
