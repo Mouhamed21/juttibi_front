@@ -1,0 +1,155 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <h5>Gestion des Utilisateurs</h5>
+
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nouvelle" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <!--            <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" ></button>-->
+        </ng-template>
+
+    </p-toolbar>
+    <p-table *ngIf="!tableau">
+        <ng-template pTemplate="header">
+
+            <p class="vides">La liste des Statuts est vide</p>
+
+
+        </ng-template>
+
+    </p-table>
+    <p-progressSpinner *ngIf="loading==true" class="spinner"></p-progressSpinner>
+
+    <p-table  #dt [value]="users" [paginator]="true" [rows]="10"  [globalFilterFields]="['libelle']" responsiveLayout="scroll"
+              [rowHover]="true" dataKey="id" *ngIf="loading==false && tableau"
+              [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                <h5 class="m-0">Liste des Statuts</h5>
+                <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Recherche..." />
+                        </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="username">username <p-sortIcon field="username"></p-sortIcon></th>
+                <th pSortableColumn="nom">nom <p-sortIcon field="nom"></p-sortIcon></th>
+                <th pSortableColumn="prenom">prenom <p-sortIcon field="prenom"></p-sortIcon></th>
+                <th pSortableColumn="adresse">adresse <p-sortIcon field="adresse"></p-sortIcon></th>
+                <th pSortableColumn="telephone">telephone <p-sortIcon field="telephone"></p-sortIcon></th>
+                <th pSortableColumn="email">email <p-sortIcon field="email"></p-sortIcon></th>
+                <th>Actions</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td> {{user.username}} </td>
+                <td> {{user.nom}} </td>
+                <td> {{user.prenom}} </td>
+                <td> {{user.adresse}} </td>
+                <td> {{user.telephone}} </td>
+                <td> {{user.email}} </td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editUser(user)" pTooltip="Modifier une classe" ></button>
+                    <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" (click)="deleteClasse(classe)" pTooltip="Supprimer une classe" ></button>
+                     <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary"  (click)="getOneClasse(classe)" pTooltip="Détails" ></button>-->
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-table>
+
+</div>
+
+<p-dialog [(visible)]="userDialog" [style]="{width: 'auto'}" header="Ajout d'un Statut" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field p-col">
+            <th pSortableColumn="username">username <p-sortIcon field="username"></p-sortIcon></th>
+            <th pSortableColumn="nom">nom <p-sortIcon field="nom"></p-sortIcon></th>
+            <th pSortableColumn="prenom">prenom <p-sortIcon field="prenom"></p-sortIcon></th>
+            <th pSortableColumn="adresse">adresse <p-sortIcon field="adresse"></p-sortIcon></th>
+            <th pSortableColumn="telephone">telephone <p-sortIcon field="telephone"></p-sortIcon></th>
+            <th pSortableColumn="email">email <p-sortIcon field="email"></p-sortIcon></th>
+            <div class="espace1">
+
+            </div>
+            <input type="text" pInputText id="username"  [(ngModel)]="user.username" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.username">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="nom"  [(ngModel)]="user.nom" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.nom">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="prenom"  [(ngModel)]="user.prenom" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.prenom">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="adresse"  [(ngModel)]="user.adresse" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.adresse">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="telephone"  [(ngModel)]="user.telephone" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.telephone">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="email"  [(ngModel)]="user.email" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.email">Libelle est obligatoire.</small>
+        </div>
+
+    </ng-template>
+    <div class="espace">
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postUser()" ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="userEditDialog" [style]="{width: 'auto'}" header="Modification d'un Statut" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field p-col">
+            <th pSortableColumn="username">username <p-sortIcon field="username"></p-sortIcon></th>
+            <th pSortableColumn="nom">nom <p-sortIcon field="nom"></p-sortIcon></th>
+            <th pSortableColumn="prenom">prenom <p-sortIcon field="prenom"></p-sortIcon></th>
+            <th pSortableColumn="adresse">adresse <p-sortIcon field="adresse"></p-sortIcon></th>
+            <th pSortableColumn="telephone">telephone <p-sortIcon field="telephone"></p-sortIcon></th>
+            <th pSortableColumn="email">email <p-sortIcon field="email"></p-sortIcon></th>
+            <div class="espace1">
+
+            </div>
+            <input type="text" pInputText id="username"  [(ngModel)]="user.username" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.username">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="nom"  [(ngModel)]="user.nom" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.nom">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="prenom"  [(ngModel)]="user.prenom" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.prenom">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="adresse"  [(ngModel)]="user.adresse" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.adresse">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="telephone"  [(ngModel)]="user.telephone" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.telephone">Libelle est obligatoire.</small>
+
+            <input type="text" pInputText id="email"  [(ngModel)]="user.email" required autofocus />
+            <small class="p-error" *ngIf="submitted && !user.email">Libelle est obligatoire.</small>
+        </div>
+
+    </ng-template>
+    <div class="espace">
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger"  (click)="hideDialog()"></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postUser()" ></button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

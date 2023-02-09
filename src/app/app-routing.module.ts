@@ -28,6 +28,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { AccessComponent } from './components/access/access.component';
 import { AuthGuard } from './components/keycloak/auth.guard';
+import {UsersComponent} from "./components/users/users.component";
 // @ts-ignore
 @NgModule({
     imports: [
@@ -36,6 +37,12 @@ import { AuthGuard } from './components/keycloak/auth.guard';
                 path: '', component: AppMainComponent,canActivate:[AuthGuard],
                 children: [
                     {path: '', component: DashboardComponent,canActivate:[AuthGuard]},
+                    {path: 'juttibi/user', component: UsersComponent},
+
+
+
+
+
                     {path: 'uikit/formlayout', component: FormLayoutComponent},
                     {path: 'uikit/input', component: InputComponent},
                     {path: 'uikit/floatlabel', component: FloatLabelComponent},

@@ -143,6 +143,7 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
 import { StatutComponent } from './components/statut/statut.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './components/keycloak/app.init';
+import { UsersComponent } from './components/users/users.component';
 
 
 @NgModule({
@@ -278,7 +279,8 @@ import { initializeKeycloak } from './components/keycloak/app.init';
         ErrorComponent,
         NotfoundComponent,
         AccessComponent,
-        StatutComponent
+        StatutComponent,
+        UsersComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
