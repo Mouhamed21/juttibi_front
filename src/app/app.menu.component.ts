@@ -34,7 +34,7 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'Utilisateurs',
+                label: 'GESTION DES UTILISATEURS',
                 // rootroles: this.findRole(['ROLE_GUICHET', 'ROLE_RECEVEUR', 'ROLE_RESPONSABLE_ANNEXE', 'ROLE_DMT', 'ROLE_ADMIN', 'ROLE_DER', 'ROLE_DRP','ROLE_SUPERADMIN','ROLE_DFC','ROLE_CCMT']),
 
                 items:[

@@ -17,6 +17,8 @@ export class UsersComponent implements OnInit {
     public submitted: boolean;
     public userDialog: boolean;
     public userEditDialog: boolean;
+    public detailDialog: boolean;
+    valSwitch:boolean=false;
 
   constructor(private userService:UserService, private messageService: MessageService) { }
 
@@ -43,14 +45,14 @@ export class UsersComponent implements OnInit {
     public postUser() {
         this.submitted = true;
         //debugger
-        if (this.user.libelle.trim()) {
+        if (this.user.username.trim()) {
             if (this.user.id) {
                 this.userService.updateUser(this.user.id,this.user).subscribe(
                     data => {
                         console.log(data);
                         this.userEditDialog = false;
                         this.user = {};
-                        //this.getSatuts();
+                        this.getAllUsers();
 
                         this.messageService.add({severity:'success', summary: 'Réussi', detail: 'Mise à jour User', life: 6000});
 
@@ -67,12 +69,12 @@ export class UsersComponent implements OnInit {
                     {
                         console.log(this.user);
                         this.userDialog = false;
-                        //this.getSatuts();
-                        this.messageService.add({severity:'success', summary: 'Réussi', detail: 'Ajout Statut', life: 6000});
+                        this.getAllUsers();
+                        this.messageService.add({severity:'success', summary: 'Réussi', detail: 'Ajout utilisateur', life: 6000});
                     },
                     error => {
                         console.log(error);
-                        this.messageService.add({severity:'error', summary: 'Echec', detail: 'Ajout Statut', life: 6000});
+                        this.messageService.add({severity:'error', summary: 'Echec', detail: 'Ajout utilisateur', life: 6000});
                     }
                 );
             }
@@ -99,5 +101,16 @@ export class UsersComponent implements OnInit {
         this.userEditDialog = false;
         //this.editClasseDialog = false;
     }
+    getDetailUser(user: any) {
+        this.user = {...user};
+        this.detailDialog = true;
+        //this.id = this.fichier.idUserChargement;
+        //this.valSwitch = this.fichier.certification;
+        //this.getUserChargement(this.fichier.idUserChargement);
+    }
 
+    hideDetailFichierDialog() {
+        this.detailDialog = false;
+        this.submitted = false;
+    }
 }

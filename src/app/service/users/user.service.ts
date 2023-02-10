@@ -17,7 +17,7 @@ export class UserService {
     }
 
     updateUser(id:number, user:any) {
-        return this.httpClient.put(this.baseUrl + '/user/'+id, user);
+        return this.httpClient.put(this.baseUrl + '/user/update/'+id, user);
     }
 
     saveUser(user:any) {

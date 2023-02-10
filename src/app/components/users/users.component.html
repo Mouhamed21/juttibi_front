@@ -13,7 +13,7 @@
     <p-table *ngIf="!tableau">
         <ng-template pTemplate="header">
 
-            <p class="vides">La liste des Statuts est vide</p>
+            <p class="vides">La liste des Utilisateurs est vide</p>
 
 
         </ng-template>
@@ -21,12 +21,12 @@
     </p-table>
     <p-progressSpinner *ngIf="loading==true" class="spinner"></p-progressSpinner>
 
-    <p-table  #dt [value]="users" [paginator]="true" [rows]="10"  [globalFilterFields]="['libelle']" responsiveLayout="scroll"
+    <p-table  #dt [value]="users" [paginator]="true" [rows]="10"  [globalFilterFields]="['username','nom','prenom','adresse','telephone','email']" responsiveLayout="scroll"
               [rowHover]="true" dataKey="id" *ngIf="loading==false && tableau"
               [rowsPerPageOptions]="[10,25,50]">
         <ng-template pTemplate="caption">
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <h5 class="m-0">Liste des Statuts</h5>
+                <h5 class="m-0">Liste des Utilisateurs</h5>
                 <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Recherche..." />
@@ -55,8 +55,9 @@
                 <td> {{user.email}} </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editUser(user)" pTooltip="Modifier une classe" ></button>
-                    <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" (click)="deleteClasse(classe)" pTooltip="Supprimer une classe" ></button>
-                     <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary"  (click)="getOneClasse(classe)" pTooltip="Détails" ></button>-->
+<!--                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" (click)="deleteClasse(classe)" pTooltip="Supprimer une classe" ></button>-->
+<!--                     <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary"  (click)="getDetailUser(user)" pTooltip="Détails" ></button>-->
+                     <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary" (click)="getDetailUser(user)" pTooltip="Détails" ></button>
                 </td>
             </tr>
         </ng-template>
@@ -71,36 +72,48 @@
 
 </div>
 
-<p-dialog [(visible)]="userDialog" [style]="{width: 'auto'}" header="Ajout d'un Statut" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="userDialog" [style]="{width: 'auto'}" header="Ajout d'un nouveau utilisateur" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <div class="p-field p-col">
-            <th pSortableColumn="username">username <p-sortIcon field="username"></p-sortIcon></th>
-            <th pSortableColumn="nom">nom <p-sortIcon field="nom"></p-sortIcon></th>
-            <th pSortableColumn="prenom">prenom <p-sortIcon field="prenom"></p-sortIcon></th>
-            <th pSortableColumn="adresse">adresse <p-sortIcon field="adresse"></p-sortIcon></th>
-            <th pSortableColumn="telephone">telephone <p-sortIcon field="telephone"></p-sortIcon></th>
-            <th pSortableColumn="email">email <p-sortIcon field="email"></p-sortIcon></th>
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="username">Username </label>
+                <input type="text" pInputText id="username"  [(ngModel)]="user.username" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.username">Username est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="nom">Nom </label>
+                <input type="text" pInputText id="nom"  [(ngModel)]="user.nom" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.nom">Nom est obligatoire.</small>
+            </div>
+
+        </div>
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="prenom">Prénom </label>
+                <input type="text" pInputText id="prenom"  [(ngModel)]="user.prenom" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.prenom">Prénom est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="adresse">Adresse</label>
+                <input type="text" pInputText id="adresse"  [(ngModel)]="user.adresse" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.adresse">Adresse est obligatoire.</small>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="telephone">Téléphone </label>
+                <input type="text" pInputText id="telephone"  [(ngModel)]="user.telephone" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.telephone">Téléphone est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="email">email </label>
+                <input type="text" pInputText id="email"  [(ngModel)]="user.email" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.email">Adresse mail est obligatoire.</small>
+            </div>
+        </div>
             <div class="espace1">
 
             </div>
-            <input type="text" pInputText id="username"  [(ngModel)]="user.username" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.username">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="nom"  [(ngModel)]="user.nom" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.nom">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="prenom"  [(ngModel)]="user.prenom" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.prenom">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="adresse"  [(ngModel)]="user.adresse" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.adresse">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="telephone"  [(ngModel)]="user.telephone" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.telephone">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="email"  [(ngModel)]="user.email" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.email">Libelle est obligatoire.</small>
-        </div>
 
     </ng-template>
     <div class="espace">
@@ -114,35 +127,43 @@
 
 <p-dialog [(visible)]="userEditDialog" [style]="{width: 'auto'}" header="Modification d'un Statut" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <div class="p-field p-col">
-            <th pSortableColumn="username">username <p-sortIcon field="username"></p-sortIcon></th>
-            <th pSortableColumn="nom">nom <p-sortIcon field="nom"></p-sortIcon></th>
-            <th pSortableColumn="prenom">prenom <p-sortIcon field="prenom"></p-sortIcon></th>
-            <th pSortableColumn="adresse">adresse <p-sortIcon field="adresse"></p-sortIcon></th>
-            <th pSortableColumn="telephone">telephone <p-sortIcon field="telephone"></p-sortIcon></th>
-            <th pSortableColumn="email">email <p-sortIcon field="email"></p-sortIcon></th>
-            <div class="espace1">
-
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="username">Username </label>
+                <input type="text" pInputText id="username"  [(ngModel)]="user.username" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.username">Username est obligatoire.</small>
             </div>
-            <input type="text" pInputText id="username"  [(ngModel)]="user.username" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.username">Libelle est obligatoire.</small>
+            <div class="field col">
+                <label for="nom">Nom </label>
+                <input type="text" pInputText id="nom"  [(ngModel)]="user.nom" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.nom">Nom est obligatoire.</small>
+            </div>
 
-            <input type="text" pInputText id="nom"  [(ngModel)]="user.nom" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.nom">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="prenom"  [(ngModel)]="user.prenom" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.prenom">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="adresse"  [(ngModel)]="user.adresse" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.adresse">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="telephone"  [(ngModel)]="user.telephone" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.telephone">Libelle est obligatoire.</small>
-
-            <input type="text" pInputText id="email"  [(ngModel)]="user.email" required autofocus />
-            <small class="p-error" *ngIf="submitted && !user.email">Libelle est obligatoire.</small>
         </div>
-
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="prenom">Prénom </label>
+                <input type="text" pInputText id="prenom"  [(ngModel)]="user.prenom" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.prenom">Prénom est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="adresse">Adresse</label>
+                <input type="text" pInputText id="adresse"  [(ngModel)]="user.adresse" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.adresse">Adresse est obligatoire.</small>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="telephone">Téléphone </label>
+                <input type="text" pInputText id="telephone"  [(ngModel)]="user.telephone" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.telephone">Téléphone est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="email">email </label>
+                <input type="text" pInputText id="email"  [(ngModel)]="user.email" required autofocus />
+                <small class="p-error" *ngIf="submitted && !user.email">Adresse mail est obligatoire.</small>
+            </div>
+        </div>
     </ng-template>
     <div class="espace">
 
@@ -152,4 +173,125 @@
         <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postUser()" ></button>
     </ng-template>
 </p-dialog>
+
+<!--/////////////////////-->
+
+<p-dialog [(visible)]="detailDialog" [resizable]="true" [maximizable]="true" [breakpoints]="{'1300px': '140vw'}" [style]="{width: '60vw'}" header="Détail fichier" [closable]="false" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+
+        <p-splitter [style]="{'height': 'auto'}">
+            <ng-template pTemplate>
+                <table class="tableaugauche">
+                    <tr>
+                        <td>
+                            <a class="gauche">NOM:</a>
+                        </td>
+                        <td>
+                            {{user.nom}}
+                        </td>
+
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <a class="gauche">PRENOM:</a>
+                        </td>
+                        <td>
+                            {{user.prenom}}
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <a class="gauche">FONCTION:</a>
+                        </td>
+                        <td>
+                            {{user.fonction.libelle}}isEnable
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <a class="gauche">isEnable:<p-inputSwitch [(ngModel)]="valSwitch" ></p-inputSwitch></a>
+                        </td>
+                        <td>
+                            <p-badge *ngIf="valSwitch == true" class="droite" value="Certifié" size="large" severity="success"></p-badge>
+                            <p-badge *ngIf="valSwitch == false" class="droite" value="Non Certifié" size="large" severity="danger"></p-badge>
+                        </td>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <a class="gauche">Date de Chargement:</a>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            {{fichier.dateChargement  | date: 'dd/MM/yyyy' }}-->
+<!--                    </tr>-->
+
+<!--                    <br>-->
+<!--                    <tr>-->
+<!--                        <td>-->
+<!--                            <a class="gauche">Certification:<p-inputSwitch [(ngModel)]="valSwitch" ></p-inputSwitch></a>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <p-badge *ngIf="valSwitch == true" class="droite" value="Certifié" size="large" severity="success"></p-badge>-->
+<!--                            <p-badge *ngIf="valSwitch == false" class="droite" value="Non Certifié" size="large" severity="danger"></p-badge>-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+                </table>
+            </ng-template>
+            <ng-template pTemplate>
+                <table class="tableaudroite" *ngIf="user">
+                    <tr>
+                        <td>
+                            <a class="gauche">Username:</a>
+                        </td>
+                        <td>
+                            {{user.username}}
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <a class="gauche">Email:</a>
+                        </td>
+                        <td>
+                            {{user.email}}
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <a class="gauche">Téléphone:</a>
+                        </td>
+                        <td>
+                            {{user.telephone}}
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <a class="gauche">Adresse:</a>
+                        </td>
+                        <td>
+                            {{user.adresse}}
+                        </td>
+                    </tr>
+                </table>
+
+            </ng-template>
+        </p-splitter>
+
+
+    </ng-template>
+    <div class="espace">
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Fermer" icon="pi pi-times" class="p-button-danger" (click)="hideDetailFichierDialog()"></button>
+        <!--        <button pButton pRipple label="Valider" (click)="onCertifier(fichier)" icon="pi pi-times" class="p-button-danger"></button>-->
+
+    </ng-template>
+</p-dialog>
+
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
