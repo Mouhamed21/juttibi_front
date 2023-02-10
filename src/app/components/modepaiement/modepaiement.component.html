@@ -1,7 +1,7 @@
 <p-toast></p-toast>
 
-<div class="card">
-    <h5>Gestion des zones</h5>
+<div class="card" *ngIf="modepaiements">
+    <h5>Gestion des Mode de Paiements</h5>
 
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
@@ -10,23 +10,28 @@
         </ng-template>
     </p-toolbar>
 
-    <div *ngIf="loading==true">
-        <h5 class="spinner">Veuillez Patienter...</h5>
-        <p-progressSpinner class="spinner"></p-progressSpinner>
-    </div>
-    <p-table *ngIf="zones?.length==0">
+
+    <p-table *ngIf="!tableau">
         <ng-template pTemplate="header">
-            <p class="vides">La liste des zones est vide</p>
+
+            <p class="vides">La liste des Mode de Paiements est vide</p>
+
+
         </ng-template>
 
     </p-table>
+    <div *ngIf="loading==true">
+        <h5 class="spinner">Veuillez Passienter...</h5>
+        <p-progressSpinner class="spinner"></p-progressSpinner>
+    </div>
+    <!--    <p-progressSpinner *ngIf="loading==true" class="spinner"></p-progressSpinner>-->
 
-    <p-table  #dt [value]="zones" *ngIf="zones?.length!=0 && loading==false" [paginator]="true" [rows]="10"  [globalFilterFields]="['libelle']" responsiveLayout="scroll"
+    <p-table  #dt [value]="modepaiements" *ngIf="loading==false && tableau" [paginator]="true" [rows]="10"  [globalFilterFields]="['libelle']" responsiveLayout="scroll"
               [rowHover]="true" dataKey="id"
               [rowsPerPageOptions]="[10,25,50]">
         <ng-template pTemplate="caption">
             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                <h5 class="m-0">Liste des zones</h5>
+                <h5 class="m-0">Liste des Mode de paiements</h5>
                 <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Recherche..." />
@@ -45,16 +50,16 @@
 
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-zone>
+        <ng-template pTemplate="body" let-modepaiement>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="zone"></p-tableCheckbox>
+                    <p-tableCheckbox [value]="modepaiement"></p-tableCheckbox>
                 </td>
-                <td>{{zone?.libelle}}</td>
+                <td>{{modepaiement.libelle}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editzone(zone)" pTooltip="Modifier une zone" ></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" (click)="deleteZone(zone?.id)" pTooltip="Supprimer une zone" ></button>
-                     <!-- <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary"  (click)="getOneClasse(classe)" pTooltip="Détails" ></button> -->
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editmodepaiement(modepaiement)" pTooltip="Modifier une modepaiement" ></button>
+                    <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" (click)="deleteClasse(classe)" pTooltip="Supprimer une classe" ></button>
+                     <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary"  (click)="getOneClasse(classe)" pTooltip="Détails" ></button>-->
                 </td>
             </tr>
         </ng-template>
@@ -69,43 +74,47 @@
 
 </div>
 
-<p-dialog [(visible)]="zoneDialog" [style]="{width: 'auto'}" header="Ajout d'une zone" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="modepaiementDialog" [style]="{width: 'auto'}" header="Ajout d'un mode paiement" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-field p-col">
             <label for="libelle">Libelle</label>
             <div class="espace1">
+
             </div>
-            <input type="text" pInputText id="libelle"  [(ngModel)]="zone.libelle" required autofocus />
-            <small class="p-error" *ngIf="submitted && !zone.libelle">Libelle est obligatoire.</small>
+            <input type="text" pInputText id="libelle"  [(ngModel)]="modepaiement.libelle" required autofocus />
+            <small class="p-error" *ngIf="submitted && !modepaiement.libelle">Libelle est obligatoire.</small>
         </div>
 
     </ng-template>
     <div class="espace">
+
     </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postzone()" ></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postModepaiement()" ></button>
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="zoneEditDialog" [style]="{width: 'auto'}" header="Modification d'une zone" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="modepaiementEditDialog" [style]="{width: 'auto'}" header="Modification d'un mode de paiement" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-field p-col">
             <label for="libelle">Libelle</label>
             <div class="espace1">
 
             </div>
-            <input type="text" pInputText id="libelle"  [(ngModel)]="zone.libelle" required autofocus />
-            <small class="p-error" *ngIf="submitted && !zone.libelle">Libelle est obligatoire.</small>
+            <input type="text" pInputText id="libelle"  [(ngModel)]="modepaiement.libelle" required autofocus />
+            <small class="p-error" *ngIf="submitted && !modepaiement.libelle">Libelle est obligatoire.</small>
         </div>
 
     </ng-template>
     <div class="espace">
+
     </div>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger"  (click)="hideDialog()"></button>
-        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postzone()" ></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postModepaiement()" ></button>
     </ng-template>
 </p-dialog>
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
 

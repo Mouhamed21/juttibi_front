@@ -127,6 +127,14 @@ return this.zones ? this.first === (this.zones.length - this.rows): true;
 isFirstPage(): boolean {
 return this.zones ? this.first === 0 : true;
 }
+deleteZone(id){
+    this.zoneService.deleteZone(id).subscribe(res=>{
+        console.log(res);
+        this.getAllzone();
 
+        
+    })
+
+}
 
 }

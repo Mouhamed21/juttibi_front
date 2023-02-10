@@ -14,18 +14,20 @@ export class ZoneService {
   constructor(private httpClient: HttpClient) { }
 
   getAllZone():Observable<any> {
-    return this.httpClient.get(this.baseUrl + '/zone');
+    return this.httpClient.get(this.baseUrl + '/zone/all');
 }
 
 postZone(zone:Zone):Observable<any> {
     return this.httpClient.post(this.baseUrl + '/zone',  zone)
 }
 updateZone(id: number,zone:Zone):Observable<any> {
-    return this.httpClient.put(this.baseUrl + '/zone/' + id,  zone)
+    // return this.httpClient.put(this.baseUrl + '/zone/' + id,  zone)
+    return this.httpClient.post(this.baseUrl + '/zone',  zone)
+
 }
 
 deleteZone(id: number):Observable<any>{
-  return this.httpClient.delete(this.baseUrl + '/zone'+ id)
+  return this.httpClient.delete(this.baseUrl + '/zone/'+ id)
 }
 
 getZoneById(id: number):Observable<any>{

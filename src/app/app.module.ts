@@ -148,6 +148,7 @@ import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from './components/keycloak/app.init';
 import { UsersComponent } from './components/users/users.component';
 import { ZoneComponent } from './components/zone/zone.component';
+import { ModepaiementComponent } from './components/modepaiement/modepaiement.component';
 
 
 @NgModule({
@@ -289,7 +290,8 @@ import { ZoneComponent } from './components/zone/zone.component';
         FrequencePaiementComponent,
         StatutComponent,
         UsersComponent,
-        ZoneComponent
+        ZoneComponent,
+        ModepaiementComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
