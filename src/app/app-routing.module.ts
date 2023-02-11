@@ -35,6 +35,7 @@ import {FrequencePaiement} from "./modele/FrequencePaiement";
 import {FrequencePaiementComponent} from "./components/frequence-paiement/frequence-paiement.component";
 import { ZoneComponent } from './components/zone/zone.component';
 import {ModepaiementComponent} from "./components/modepaiement/modepaiement.component";
+import {MarchandComponent} from "./components/marchand/marchand.component";
 // @ts-ignore
 @NgModule({
     imports: [
@@ -46,6 +47,7 @@ import {ModepaiementComponent} from "./components/modepaiement/modepaiement.comp
                     {path: 'juttibi/user', component: UsersComponent},
                     {path: 'juttibi/fonction', component: FonctionComponent},
                     {path: 'juttibi/categorieMarchand', component: CategorieMarchandComponent},
+                    {path: 'juttibi/marchand', component: MarchandComponent},
                     {path: 'juttibi/frequencePaiement', component: FrequencePaiementComponent},
                     {path: 'juttibi/zone', component: ZoneComponent},
 

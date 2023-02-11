@@ -10,7 +10,8 @@ export  function  initializeKeycloak(keycloak: KeycloakService,state: RouterStat
     return () =>
         keycloak.init({
             config: {
-                url: 'http://10.14.14.232:8180/auth/',
+                //url: 'http://10.14.14.232:8180/auth/',
+                url: 'http://localhost:8080/auth/',
                 // realm:"Digital-Poste",
                 realm:"Digital_post",
                 clientId:"jfront",

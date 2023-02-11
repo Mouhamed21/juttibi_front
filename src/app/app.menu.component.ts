@@ -12,9 +12,9 @@ import { AppMainComponent } from './app.main.component';
                         <li app-menuitem *ngFor="let child of item.items" [item]="child" [index]="i" role="none"></li>
                     </ul>
                 </li>
-                <a href="https://www.primefaces.org/primeblocks-ng/#/">
+<!--                <a href="https://www.primefaces.org/primeblocks-ng/#/">
                     <img src="assets/layout/images/{{appMain.config.dark ? 'banner-primeblocks-dark' : 'banner-primeblocks'}}.png" alt="Prime Blocks" class="w-full mt-3"/>
-                </a>
+                </a>-->
             </ul>
         </div>
     `
@@ -28,7 +28,7 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
         this.model = [
             {
-                label: 'Home',
+                label: 'Accueil',
                 items:[
                     {label: 'Accueil',icon: 'pi pi-fw pi-home', routerLink: ['/']}
                 ]
@@ -42,15 +42,11 @@ export class AppMenuComponent implements OnInit {
                 ]
             }
             ,{
-                label: 'UI Components',
+                label: 'Marchand',
                 items: [
-                    {label: 'Fonction', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/fonction']},
-                    {label: 'Categorie Marchand', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/categorieMarchand']},
-                    {label: 'Frequence Paiement', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/frequencePaiement']},
-                    {label: 'Zone', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/zone']},
+                    {label: 'Marchand', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/marchand']},
 
-                    {label: 'Mode de Paiement', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/modepaiement']},
-                    {label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout']},
+                 /*   {label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout']},
                     {label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input']},
                     {label: 'Float Label', icon: 'pi pi-fw pi-bookmark', routerLink: ['/uikit/floatlabel']},
                     {label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/uikit/invalidstate']},
@@ -62,10 +58,27 @@ export class AppMenuComponent implements OnInit {
                     {label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media']},
                     {label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'], preventExact: true},
                     {label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message']},
-                    {label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file']}
+                    {label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file']}*/
                 ]
             },
             {
+                label: 'Paiement',
+                items: [
+                    {label: 'Frequence Paiement', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/frequencePaiement']},
+                    {label: 'Mode de Paiement', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/modepaiement']},
+                ]
+            },
+            {
+                label: 'Parametrage',
+                items: [
+                    {label: 'Fonction', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/fonction']},
+                    {label: 'Categorie Marchand', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/categorieMarchand']},
+                    {label: 'Zone', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/zone']},
+
+                ]
+            },
+
+/*            {
                 label:'Prime Blocks',
                 items:[
                     {label: 'Free Blocks', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW'},
@@ -77,8 +90,8 @@ export class AppMenuComponent implements OnInit {
                     {label: 'PrimeIcons', icon: 'pi pi-fw pi-prime', routerLink: ['/icons']},
                     {label: 'PrimeFlex', icon: 'pi pi-fw pi-desktop', url: ['https://www.primefaces.org/primeflex/'], target: '_blank'},
                 ]
-            },
-            {
+            },*/
+          /*  {
                 label: 'Pages',
                 items: [
                     {label: 'Crud', icon: 'pi pi-fw pi-user-edit', routerLink: ['/pages/crud']},
@@ -132,8 +145,8 @@ export class AppMenuComponent implements OnInit {
                         ]
                     }
                 ]
-            },
-            {
+            },*/
+        /*    {
                 label:'Get Started',
                 items:[
                     {
@@ -143,10 +156,9 @@ export class AppMenuComponent implements OnInit {
                         label: 'View Source', icon: 'pi pi-fw pi-search', url: ['https://github.com/primefaces/sakai-ng'], target: '_blank'
                     }
                 ]
-            }
+            }*/
         ];
     }
-
     onKeydown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement> event.target);
         if (event.code === 'Enter' || event.code === 'Space') {

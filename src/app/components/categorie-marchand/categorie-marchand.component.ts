@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Fonction} from "../../modele/Fonction";
 import {CategorieMarchand} from "../../modele/CategorieMarchand";
-import {FonctionService} from "../../service/Fonction/fonction.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {CategorieMarchandService} from "../../service/CategorieMarchand/categorie-marchand.service";
 

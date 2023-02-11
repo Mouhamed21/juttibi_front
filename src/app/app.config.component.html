@@ -1,7 +1,7 @@
 <div id="layout-config" class="layout-config" [ngClass]="{'layout-config-active': appMain.configActive}" (click)="appMain.onConfigClick($event)">
-    <a style="cursor: pointer" id="layout-config-button" class="layout-config-button" (click)="onConfigButtonClick($event)">
+<!--    <a style="cursor: pointer" id="layout-config-button" class="layout-config-button" (click)="onConfigButtonClick($event)">
         <i class="pi pi-cog"></i>
-    </a>
+    </a>-->
     <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text layout-config-close" (click)="onConfigButtonClick($event)"></button>
     <div class="layout-config-content">
         <h6 class="mt-0">Component Scale</h6>
@@ -40,7 +40,7 @@
                                 inputId="menuType2"></p-radioButton>
                 <label for="menuType2">Overlay</label>
         </div>
-        
+
         <h6>Bootstrap</h6>
         <div class="grid free-themes">
             <div class="col-3 text-center">

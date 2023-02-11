@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ZoneService } from 'src/app/service/zone/zone.service';
-import { Zone } from 'src/app/modele/zone';
+import {Zone} from "../../modele/Zone";
+//import { Zone } from 'src/app/modele/zone';
 
 
 @Component({
@@ -132,7 +133,7 @@ deleteZone(id){
         console.log(res);
         this.getAllzone();
 
-        
+
     })
 
 }

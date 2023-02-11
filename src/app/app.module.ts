@@ -149,6 +149,7 @@ import { initializeKeycloak } from './components/keycloak/app.init';
 import { UsersComponent } from './components/users/users.component';
 import { ZoneComponent } from './components/zone/zone.component';
 import { ModepaiementComponent } from './components/modepaiement/modepaiement.component';
+import { MarchandComponent } from './components/marchand/marchand.component';
 
 
 @NgModule({
@@ -291,7 +292,8 @@ import { ModepaiementComponent } from './components/modepaiement/modepaiement.co
         StatutComponent,
         UsersComponent,
         ZoneComponent,
-        ModepaiementComponent
+        ModepaiementComponent,
+        MarchandComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

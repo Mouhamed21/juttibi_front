@@ -1,0 +1,189 @@
+<p-toast></p-toast>
+
+<div class="card" *ngIf="marchands">
+    <h5>Gestion de Marchands</h5>
+
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nouvelle" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <!--            <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" ></button>-->
+        </ng-template>
+    </p-toolbar>
+
+    <div *ngIf="loading==true">
+        <h5 class="spinner">Veuillez Passienter...</h5>
+        <p-progressSpinner class="spinner"></p-progressSpinner>
+    </div>
+    <p-table *ngIf="!tableau">
+        <ng-template pTemplate="header">
+
+            <p class="vides">La liste de Marchands est vide</p>
+
+
+        </ng-template>
+
+    </p-table>
+    <!--    <p-progressSpinner *ngIf="loading==true" class="spinner"></p-progressSpinner>-->
+
+    <p-table  #dt [value]="marchands" *ngIf="tableau && loading==false" [paginator]="true" [rows]="10"  [globalFilterFields]="['libelle']" responsiveLayout="scroll"
+              [rowHover]="true" dataKey="id"
+              [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                <h5 class="m-0">Liste des Marchands</h5>
+                <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Recherche..." />
+                        </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+
+                <th pSortableColumn="nom">Nom <p-sortIcon field="nom"></p-sortIcon></th>
+                <th pSortableColumn="prenom">Prenom <p-sortIcon field="prenom"></p-sortIcon></th>
+                <th pSortableColumn="telephone">Telephone <p-sortIcon field="telephone"></p-sortIcon></th>
+                <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
+                <th pSortableColumn="zone">Zone <p-sortIcon field="zone"></p-sortIcon></th>
+                <th pSortableColumn="frequencePaiement">Frequence Paiement <p-sortIcon field="frequencePaiement"></p-sortIcon></th>
+                <th pSortableColumn="categorieMarchand">Categorie de Marchand <p-sortIcon field="categorieMarchand"></p-sortIcon></th>
+                <th>Actions</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-marchand>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="marchand"></p-tableCheckbox>
+                </td>
+                <td>{{marchand.nom}}</td>
+                <td>{{marchand.prenom}}</td>
+                <td>{{marchand.telephone}}</td>
+                <td>{{marchand.code}}</td>
+                <td>{{marchand.zone?.libelle}}</td>
+                <td>{{marchand.frequencePaiement?.libelle}}</td>
+                <td>{{marchand.categorieMarchand?.libelle}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editmarchand(marchand)" pTooltip="Modifier une fonction" ></button>
+                    <!-- <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning mr-2" (click)="deleteClasse(classe)" pTooltip="Supprimer une classe" ></button>
+                     <button pButton pRipple icon="pi pi-bookmark-fill" class="p-button-rounded p-button-primary"  (click)="getOneClasse(classe)" pTooltip="Détails" ></button>-->
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="paginatorleft">
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-table>
+
+</div>
+
+<p-dialog [(visible)]="marchandDialog" [style]="{width: 'auto'}" header="Ajout d'un Marchand" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="nom">Nom</label>
+                <input type="text" pInputText id="nom"  [(ngModel)]="marchand.nom" required autofocus />
+                <small class="p-error" *ngIf="submitted && !marchand.nom">Nom est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="prenom">Prenom</label>
+                <input type="text" pInputText id="prenom"  [(ngModel)]="marchand.prenom" required autofocus />
+                <small class="p-error" *ngIf="submitted && !marchand.prenom">Prenom est obligatoire.</small>
+            </div>
+        </div>
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="telephone">Telephone</label>
+<!--                <input type="text" pInputText id="telephone"  [(ngModel)]="marchand.telephone" required autofocus />-->
+                <p-inputMask mask="99 999-99-99" id="telephone" [(ngModel)]="marchand.telephone" placeholder="77 777-66-77"></p-inputMask>
+                <small class="p-error" *ngIf="submitted && !marchand.telephone">Téléphone est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="code">Code Marchand</label>
+                <input type="text" pInputText id="code" [(ngModel)]="marchand.code" placeholder="Code"  required autofocus />
+                <small class="p-error" *ngIf="submitted && !marchand.code">Code Marchand est obligatoir.</small>
+            </div>
+        </div>
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="zone">Zone</label>
+                <p-autoComplete appendTo="body" placeholder="Zone" id="zone" readonly="true" [dropdown]="true" [(ngModel)]="zone" required autofocus
+                                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !zone}"
+                                 [suggestions]="filteredZones" showEmptyMessage="Liste des Type de Piece vides"
+                                 (completeMethod)="filterZone($event)"  field="libelle"></p-autoComplete>
+                <small class="p-error" *ngIf="submitted && !zone">Zone est obligatoire.</small>
+            </div>
+            <div class="field col">
+                <label for="categorieMarchand">Categorie Marchand</label>
+                <p-autoComplete appendTo="body"  id="categorieMarchand" placeholder="Categorie Marchand" readonly="true" [dropdown]="true" [(ngModel)]="categorieMarchand" required autofocus
+                                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !categorieMarchand}"
+                                 [suggestions]="filteredCategorieMarchands" showEmptyMessage="Liste des Categories de Marchand vide"
+                                 (completeMethod)="filterCategorieMarchand($event)"  field="libelle"></p-autoComplete>
+                <small class="p-error" *ngIf="submitted && !categorieMarchand">Categorie Marchand est obligatoire.</small>
+            </div>
+        </div>
+
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="frequencePaiement">Frequence Paiement</label>
+                <p-autoComplete appendTo="body" placeholder="Frequence de Paiement" id="frequencePaiement" readonly="true" [dropdown]="true" [(ngModel)]="frequencePaiment" required autofocus
+                                [ngClass]="{'ng-invalid ng-dirty' : submitted && !frequencePaiment}"
+                                [suggestions]="filteredFrequencePaiements" showEmptyMessage="Liste des Frequences de paiements"
+                                (completeMethod)="filterFrequencePaiement($event)"  field="libelle"></p-autoComplete>
+                <small class="p-error" *ngIf="submitted && !frequencePaiment">Frequence de Paiement est obligatoire.</small>
+            </div>
+        </div>
+
+    </ng-template>
+    <div class="espace">
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postmarchand()" ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="marchandEditDialog" [style]="{width: 'auto'}" header="Modification d'une Categorie de Marchand" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="p-field p-col">
+            <label for="libelle">Libelle</label>
+            <div class="espace1">
+
+            </div>
+            <input type="text" pInputText id="libelle"  [(ngModel)]="marchand.libelle" required autofocus />
+            <small class="p-error" *ngIf="submitted && !marchand.libelle">Libelle est obligatoire.</small>
+        </div> <br> <br>
+        <div class="p-field p-col">
+            <label for="montant">Montant</label>
+            <div class="espace1">
+
+            </div>
+            <p-inputNumber id="montant"  [(ngModel)]="marchand.montant" required autofocus></p-inputNumber>
+
+            <!--            <input type="text" pInputText id="montant"  [(ngModel)]="marchand.montant" required autofocus />-->
+            <small class="p-error" *ngIf="submitted && !marchand.montant">Montant est obligatoire.</small>
+        </div>
+
+    </ng-template>
+    <div class="espace">
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-danger"  (click)="hideDialog()"></button>
+        <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-success" (click)="postmarchand()" ></button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+
+
