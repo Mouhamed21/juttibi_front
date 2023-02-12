@@ -38,13 +38,13 @@ export class AppMenuComponent implements OnInit {
                 // rootroles: this.findRole(['ROLE_GUICHET', 'ROLE_RECEVEUR', 'ROLE_RESPONSABLE_ANNEXE', 'ROLE_DMT', 'ROLE_ADMIN', 'ROLE_DER', 'ROLE_DRP','ROLE_SUPERADMIN','ROLE_DFC','ROLE_CCMT']),
 
                 items:[
-                    {label: 'Utilisateurs',icon: 'pi pi-fw pi-check-square', routerLink: ['/juttibi/user']}
+                    {label: 'Utilisateurs',icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/user']}
                 ]
             }
             ,{
                 label: 'Marchand',
                 items: [
-                    {label: 'Marchand', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/marchand']},
+                    {label: 'Marchand', icon: 'pi pi-fw pi-check-square', routerLink: ['/juttibi/marchand']},
 
                  /*   {label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout']},
                     {label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input']},
@@ -64,17 +64,25 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Paiement',
                 items: [
-                    {label: 'Frequence Paiement', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/frequencePaiement']},
-                    {label: 'Mode de Paiement', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/modepaiement']},
+                    {label: 'Frequence Paiement', icon: 'pi pi-fw pi-check-square', routerLink: ['/juttibi/frequencePaiement']},
+                    {label: 'Mode de Paiement', icon: 'pi pi-fw pi-check-square', routerLink: ['/juttibi/modepaiement']},
                 ]
             },
             {
                 label: 'Parametrage',
                 items: [
-                    {label: 'Fonction', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/fonction']},
-                    {label: 'Categorie Marchand', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/categorieMarchand']},
-                    {label: 'Zone', icon: 'pi pi-fw pi-id-card', routerLink: ['/juttibi/zone']},
+                    {label: 'Fonction', icon: 'pi pi-fw pi-check-square', routerLink: ['/juttibi/fonction']},
+                    {label: 'Categorie Marchand', icon: 'pi pi-fw pi-check-square', routerLink: ['/juttibi/categorieMarchand']},
+                    {label: 'Zone', icon: 'pi pi-fw pi-check-square', routerLink: ['/juttibi/zone']},
 
+                ]
+            },
+            {
+                label: 'RAPPORTS',
+                // rootroles: this.findRole(['ROLE_GUICHET', 'ROLE_RECEVEUR', 'ROLE_RESPONSABLE_ANNEXE', 'ROLE_DMT', 'ROLE_ADMIN', 'ROLE_DER', 'ROLE_DRP','ROLE_SUPERADMIN','ROLE_DFC','ROLE_CCMT']),
+
+                items:[
+                    {label: 'Rapport journalier',icon: 'pi pi-fw pi-check-square', routerLink: ['/rapports/journalier']}
                 ]
             },
 
